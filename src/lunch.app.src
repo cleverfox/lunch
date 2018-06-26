@@ -5,7 +5,12 @@
   {mod, { lunch, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    sasl,
+    cowboy,
+    cowdb,
+    lager,
+    jsx
    ]},
   {env,[]},
   {modules, []},
