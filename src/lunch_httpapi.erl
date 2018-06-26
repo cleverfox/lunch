@@ -66,6 +66,15 @@ h(<<"GET">>, [<<"list">>], _Req) ->
     #{ data => L }
    );
 
+h(<<"POST">>, [<<"dinner">>, <<"adduser">>], Req) ->
+  #{<<"username">>:=User}=apixiom:bodyjs(Req),
+  case gen_server:call(db, {add_user, User}) of
+    {ok, U} ->
+      answer( #{ data => U });
+    {exists, U} ->
+      answer( #{ data => U })
+  end;
+
 h(<<"POST">>, [<<"dinner">>, <<"add">>], Req) ->
 %  lager:info("B ~p",[apixiom:bodyjs(Req)]),
   #{<<"raw">>:=R}=apixiom:bodyjs(Req),
